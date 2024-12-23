@@ -43,6 +43,8 @@ public class Category {
         this.books = books;
     }
 
+    public Category(){}
+
     public Category(String name) {
         this.name = name;
     }
