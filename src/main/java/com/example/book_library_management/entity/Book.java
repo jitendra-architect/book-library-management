@@ -1,14 +1,13 @@
 package com.example.book_library_management.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -26,11 +25,11 @@ public class Book {
 
     private LocalDate publishedDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)  // Lazy loading for category
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)  // Lazy loading for authors
     @JoinTable(
             name = "Book_Author",
             joinColumns = @JoinColumn(name = "book_id"),

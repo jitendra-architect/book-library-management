@@ -1,13 +1,12 @@
 package com.example.book_library_management.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -17,11 +16,11 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long borrowId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)  // Lazy loading for user
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)  // Lazy loading for book
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
