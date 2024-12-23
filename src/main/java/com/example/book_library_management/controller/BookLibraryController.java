@@ -1,15 +1,18 @@
 package com.example.book_library_management.controller;
 
+import com.example.book_library_management.dto.BookRequest;
+import com.example.book_library_management.entity.Author;
 import com.example.book_library_management.entity.Book;
 import com.example.book_library_management.entity.Borrow;
-import com.example.book_library_management.service.BookService;
-import com.example.book_library_management.service.BorrowService;
-import com.example.book_library_management.service.UserService;
+import com.example.book_library_management.entity.Category;
+import com.example.book_library_management.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/library")
@@ -19,15 +22,39 @@ public class BookLibraryController {
     private BookService bookService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private BorrowService borrowService;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private AuthorService authorService;
+
+    @Autowired
+    private UserService userService;
+
     // Add a new book
-    @PostMapping("/books")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
-        return ResponseEntity.ok(bookService.addBook(book));
+    @PostMapping("/book")
+    public ResponseEntity<Book> createBook(@RequestBody BookRequest bookRequest) {
+        // Create a Category
+        Category category = categoryService.getOrCreateCategory(bookRequest.getCategoryName());
+
+        // Create Authors and associate them with the book
+        List<Author> authors = bookRequest.getAuthors().stream()
+                .map(authorName -> authorService.getOrCreateAuthor(authorName))
+                .collect(Collectors.toList());
+
+        // Create Book
+        Book book = new Book();
+        book.setTitle(bookRequest.getTitle());
+        book.setIsbn(bookRequest.getIsbn());
+        book.setPublishedDate(bookRequest.getPublishedDate());
+        book.setCategory(category);
+        book.setAuthors(authors);
+
+        // Save Book
+        Book savedBook = bookService.saveBook(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
     // Get all books

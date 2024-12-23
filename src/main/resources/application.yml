@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/book-library
+    url: jdbc:mysql://localhost:3306/mybooklibrarydb
     username: root
-    password: root
+    password: JITENDRA
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

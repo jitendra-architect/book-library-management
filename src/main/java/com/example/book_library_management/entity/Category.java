@@ -5,10 +5,6 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Category {
 
@@ -23,4 +19,37 @@ public class Category {
     private List<Book> books;
 
     // Getters and Setters
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Category(Long categoryId, String name, List<Book> books) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.books = books;
+    }
 }
