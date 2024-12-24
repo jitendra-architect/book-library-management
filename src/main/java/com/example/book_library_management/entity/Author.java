@@ -20,8 +20,6 @@ public class Author {
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)  // Lazy loading for books
     private List<Book> books;
 
-    // Getters and Setters
-
     public Long getAuthorId() {
         return authorId;
     }

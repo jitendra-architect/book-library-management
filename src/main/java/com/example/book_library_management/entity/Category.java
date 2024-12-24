@@ -5,9 +5,10 @@ import lombok.*;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
@@ -18,7 +19,6 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Book> books;
 
-    // Getters and Setters
     public Long getCategoryId() {
         return categoryId;
     }
@@ -43,10 +43,10 @@ public class Category {
         this.books = books;
     }
 
-    public Category(){}
+    public Category() {}
 
     public Category(String name) {
-        this.name = name;
+       this.name = name;
     }
 
     public Category(Long categoryId, String name, List<Book> books) {

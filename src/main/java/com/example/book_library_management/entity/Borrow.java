@@ -29,8 +29,6 @@ public class Borrow {
 
     private LocalDate returnDate;
 
-    // Getters and Setters
-
     public Long getBorrowId() {
         return borrowId;
     }
