@@ -1,5 +1,6 @@
 package com.example.book_library_management.controller;
 
+import com.example.book_library_management.dto.BookDTO;
 import com.example.book_library_management.dto.BookRequest;
 import com.example.book_library_management.entity.Author;
 import com.example.book_library_management.entity.Book;
@@ -8,7 +9,6 @@ import com.example.book_library_management.entity.Category;
 import com.example.book_library_management.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,30 +22,30 @@ public class BookLibraryController {
 
     Logger logger = LoggerFactory.getLogger(BookLibraryController.class);
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
 
-    @Autowired
-    private BorrowService borrowService;
+    private final BorrowService borrowService;
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    @Autowired
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
-    @Autowired
-    private UserService userService;
+    public BookLibraryController(BookService bookService, BorrowService borrowService, CategoryService categoryService, AuthorService authorService) {
+        this.bookService = bookService;
+        this.borrowService = borrowService;
+        this.categoryService = categoryService;
+        this.authorService = authorService;
+    }
 
     // Add a new book
     @PostMapping("/book")
     public ResponseEntity<Book> createBook(@RequestBody BookRequest bookRequest) {
         // Create a Category
         Category category = categoryService.getOrCreateCategory(bookRequest.getCategoryName());
-        logger.info("Jitendra", category.toString());
+        logger.info("Jitendra {}", category.toString());
         // Create Authors and associate them with the book
         List<Author> authors = bookRequest.getAuthors().stream()
-                .map(authorName -> authorService.getOrCreateAuthor(authorName))
+                .map(authorService::getOrCreateAuthor)
                 .collect(Collectors.toList());
 
         // Create Book
@@ -57,7 +57,7 @@ public class BookLibraryController {
         book.setAuthors(authors);
         // Save Book
         Book savedBook = bookService.saveBook(book);
-        logger.info("Jitendra", savedBook);
+        logger.info("Jitendra {}", savedBook);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
@@ -89,6 +89,11 @@ public class BookLibraryController {
     @GetMapping("/borrow/user/{userId}")
     public ResponseEntity<List<Borrow>> getBorrowHistory(@PathVariable Long userId) {
         return ResponseEntity.ok(borrowService.getBorrowHistory(userId));
+    }
+
+    @GetMapping("/book/search/{name}")
+    public ResponseEntity<List<BookDTO>> getBooksByName(@PathVariable String name) {
+        return ResponseEntity.ok(bookService.getBooks(name));
     }
 }
 
