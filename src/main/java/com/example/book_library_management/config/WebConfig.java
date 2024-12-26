@@ -11,13 +11,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    public MyCustomInterceptor myCustomInterceptor() {
-        return new MyCustomInterceptor();
+    public RateLimitingInterceptor rateLimitingInterceptor() {
+        return new RateLimitingInterceptor();
     }
 
     @Bean
-    public RateLimitingInterceptor rateLimitingInterceptor() {
-        return new RateLimitingInterceptor();
+    public MyCustomInterceptor myCustomInterceptor() {
+        return new MyCustomInterceptor();
     }
 
     @Override
@@ -30,13 +30,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/library/**")
                 .order(2);  // Order 2, will be executed after rateLimitingInterceptor
     }
-//
-//    @Autowired
-//    private RateLimitingInterceptor rateLimitingInterceptor;
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(rateLimitingInterceptor)
-//                .addPathPatterns("/**");  // Apply to all endpoints, or specify specific ones
-//    }
 }

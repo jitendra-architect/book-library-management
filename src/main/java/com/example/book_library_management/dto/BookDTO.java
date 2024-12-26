@@ -1,7 +1,5 @@
 package com.example.book_library_management.dto;
 
-import com.example.book_library_management.entity.Category;
-
 public class BookDTO {
     private String title;
     private Long bookId;

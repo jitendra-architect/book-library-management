@@ -32,7 +32,7 @@ public class BookService {
     }
 
     public List<BookDTO> getBooks(String name) {
-        List<Object[]> books = bookRepository.getBooks(name);
+        List<Object[]> books = bookRepository.getBooks_Native(name);
         List<BookDTO> bookDTOs = new ArrayList<>();
         for (Object[] result : books) {
 

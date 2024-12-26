@@ -1,10 +1,14 @@
 server:
   port: 8081
+
 spring:
+  application:
+    name: user-service
+
   datasource:
     url: jdbc:mysql://localhost:3306/mybooklibrarydb
     username: root
-    password: root
+    password: JITENDRA
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -19,3 +23,5 @@ spring:
      timeout: 2000ms
      host: localhost
 
+logging:
+  level.com.example.book_library_management: debug

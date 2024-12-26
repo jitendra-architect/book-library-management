@@ -15,9 +15,8 @@ public class MyCustomInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("Request received at:" + request.getRequestURI());
+        logger.debug("Request received at:{}",request.getRequestURI());
         // You can also check for conditions and stop the request from proceeding
-
 //        if (request.getHeader("Authorization") == null) {
 //            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 //            response.getWriter().write("Unauthorized request");
@@ -32,12 +31,12 @@ public class MyCustomInterceptor implements HandlerInterceptor {
             // Example of modifying the response before it is sent
             response.setHeader("X-Response-Time", String.valueOf(System.currentTimeMillis()));
             // You can also log the handler or the response here
-            logger.info("Request completed: " + request.getRequestURI());
+            logger.debug("Request completed: {}",request.getRequestURI());
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 Exception ex) throws Exception {
-        logger.info("Request and Response completed" + response.encodeURL("Jitendra kumar"));
+        logger.debug("Request and Response completed {}",response.encodeURL("Jitendra kumar"));
     }
 }
