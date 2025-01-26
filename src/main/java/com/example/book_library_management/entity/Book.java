@@ -2,6 +2,7 @@ package com.example.book_library_management.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Book")
+@Builder
 public class Book {
 
     @Id

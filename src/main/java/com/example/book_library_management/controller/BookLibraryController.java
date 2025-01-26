@@ -96,4 +96,3 @@ public class BookLibraryController {
         return ResponseEntity.ok(bookService.getBooks(name));
     }
 }
-

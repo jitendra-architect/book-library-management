@@ -2,7 +2,6 @@ package com.example.book_library_management.service;
 
 import com.example.book_library_management.dto.BookDTO;
 import com.example.book_library_management.entity.Book;
-import com.example.book_library_management.entity.Category;
 import com.example.book_library_management.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

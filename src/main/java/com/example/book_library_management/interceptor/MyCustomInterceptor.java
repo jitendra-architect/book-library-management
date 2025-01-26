@@ -17,11 +17,11 @@ public class MyCustomInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.debug("Request received at:{}",request.getRequestURI());
         // You can also check for conditions and stop the request from proceeding
-//        if (request.getHeader("Authorization") == null) {
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            response.getWriter().write("Unauthorized request");
-//            return false;
-//        }
+        //        if (request.getHeader("Authorization") == null) {
+        //            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        //            response.getWriter().write("Unauthorized request");
+        //            return false;
+        //        }
         return true;
     }
 
